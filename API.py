@@ -6,6 +6,8 @@ cmd = { "connect":"auth/",
         "disconnect":"logout/",  
 
         "sections":"catalogs/"
+        
+      
       }
 
 class EZ:
@@ -31,17 +33,36 @@ login:[%s]\npassword:[%s]"%(
     res = requests.post( self.host + cmd["disconnect"], 
                   headers = { 'token':self.token })
     print( res )
-
+#  Читает код и количество товаров в секции ОБУВЬ
   def getProductSection( self ):
     logging.info( "Получение списка разделов товаров" )
     res = requests.post( self.host + cmd["sections"], 
                   headers = { 'token':self.token }).json()                                                                                                                 
+
     for i in res['catalogs']:
       if i['name'] == 'Обувь':
+        
         self.numGtins = i['count_items']
         self.codeSection = i['code']
         logging.info( "   Количество товаров в категории:[%s]"%( self.numGtins ) )
         logging.info( "   Код категории:[%s]"%( self.codeSection ) )
+#  Возвращает список вида [GTIN, MODEL, SIZE]
+  def getAllGtins( self ):
+    logging.info( "Читаем все GTIN-ы" )
+    ret = []
+    addr = "%s%s%s/"%( self.host, cmd['sections'], self.codeSection )
+    res = requests.post( addr, 
+                  headers = { 'token':self.token } ).json()["items"]                                                                                                                 
+    for i in res:
+      
+      
+      s = "%s %s"%( i['gtin'], i['articul'] )
+      for k in i['params']:
+        if k['name'] == "Размер в штихмассовой системе":
+          s = s + " %s"%( k['value'] )
+          now = { 'gtin':i['gtin'], 'model':i['articul'], 'size':k['value'] }
+          ret.append( now )
+    return ret
 
 if __name__ == "__main__":
   addr = "api.datamark.by"
@@ -53,6 +74,7 @@ if __name__ == "__main__":
   id.connect()
   
   id.getProductSection()
+  print( id.getAllGtins() )
   
   id.disconnect()
 
