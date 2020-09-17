@@ -1,0 +1,28 @@
+ 1.    Устанавливаем ARMBIAN на Orange Pi.
+ 2.    Вносим изменения в файл /etc/network/intefaces:
+                auto wlan0
+                allow-hotplug wlan0
+                iface wlan0 inet dhcp
+                wpa-ssid 
+                wpa-psk <Пароль WiFi>
+ 3.     Ставим nmap:
+                sudo apt install nmap
+ 4.     Узнаем диапазон адресов:
+                ifconfig
+ 5.     Находим IP адрес Orange PI:
+                sudo nmap -sn 192.168.x.x/24
+ 6.     Подключаемся по ssh: 
+                ssh root@адрес
+ 7.     Вводим пароль: 1234
+ 8.     Вводим новый пароль.
+ 9.     Создаем нового пользователя.
+10.    Обновляем систему:
+                sudo apt update
+                sudo apt upgrade
+11.    Удаляем Network Manager:
+                sudo apt remove network-manager
+                sudo apt autoremove
+12.    Устанавливаем PIP:
+                sudo apt install python3-pip
+13.    
+
