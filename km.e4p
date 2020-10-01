@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project km -->
-<!-- Saved: 2020-09-17, 13:23:43 -->
+<!-- Saved: 2020-09-30, 08:49:59 -->
 <!-- Copyright (C) 2020 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -17,10 +17,13 @@
     <Source>README.md</Source>
     <Source>__init__.py</Source>
     <Source>client.ini</Source>
+    <Source>io.py</Source>
+    <Source>net_io.py</Source>
     <Source>orange_server.py</Source>
     <Source>pk_client.py</Source>
     <Source>server.ini</Source>
     <Source>steps.txt</Source>
+    <Source>tmp.py</Source>
   </Sources>
   <Forms/>
   <Translations/>

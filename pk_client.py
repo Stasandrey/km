@@ -1,18 +1,34 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import socket
+
+import time
+import net_io
+import logging
+
+
 HOST = '192.168.43.87'
 PORT = 9090
+PASSWORD = '1234'
+token = ''
+
+cmd = { 'command':'scan', 'data':'find modules' }
+
+
+logging.basicConfig( level = logging.INFO )
+
+#res = net_io.scan_net( "192.168.43." )
+res = net_io.login( HOST, PASSWORD )
+if res == 'ERROR':
+  logging.info( "Ошибка получения токена" )
+  exit()
+token = res  
+net_io.logout( token )
+
+print( res )
+exit()
+
 while True:    
-    sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
-
-    sock.connect(( HOST, PORT ))
-    s = 'hello,brother'.encode( 'utf-8' )
-    sock.sendall( s )
-
-    data = sock.recv(1024)
-    print( data.decode( 'utf-8' ) )
-    sock.close()
-
+  print( net_io.send_net( "127.0.0.1", cmd ) )
+  time.sleep( 5 )
 

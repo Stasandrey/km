@@ -5,8 +5,9 @@ import requests
 cmd = { "connect":"auth/", 
         "disconnect":"logout/",  
 
-        "sections":"catalogs/"
+        "sections":"catalogs/", 
         
+        "order_codes":"orders/add/"
       
       }
 
@@ -63,6 +64,16 @@ login:[%s]\npassword:[%s]"%(
           now = { 'gtin':i['gtin'], 'model':i['articul'], 'size':k['value'] }
           ret.append( now )
     return ret
+#  Заказ num кодов маркировки для gtin
+  def orderCodes( self, gtin, num ):
+      logging.info( "Заказываем коды маркировки для GTIN:[%s] [%s] шт."%( 
+                                                        gtin, num) )
+      print( self.host + cmd["order_codes"] )
+      res = requests.post( self.host + cmd["order_codes"], 
+                                headers = { 'token':self.token }, data = { 
+                                "label_type":7, "count":num, "gtin":int( gtin )
+                                } ).json()
+      print( res )
 
 if __name__ == "__main__":
   addr = "api.datamark.by"
@@ -73,8 +84,10 @@ if __name__ == "__main__":
   id = EZ( addr, name, psk )
   id.connect()
   
-  id.getProductSection()
-  print( id.getAllGtins() )
+#  id.getProductSection()
+#  print( id.getAllGtins() )
+  
+  id.orderCodes( '04811790050238', 2 )
   
   id.disconnect()
 
