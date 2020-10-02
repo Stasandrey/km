@@ -1,34 +1,34 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-
-import time
-import net_io
+import client_API
 import logging
 
-
-HOST = '192.168.43.87'
+HOST = '127.0.0.1'
 PORT = 9090
 PASSWORD = '1234'
 token = ''
 
-cmd = { 'command':'scan', 'data':'find modules' }
-
-
 logging.basicConfig( level = logging.INFO )
 
-#res = net_io.scan_net( "192.168.43." )
-res = net_io.login( HOST, PASSWORD )
-if res == 'ERROR':
+res = client_API.login( HOST, PASSWORD )
+if res['result'] == 'ERROR':
   logging.info( "Ошибка получения токена" )
   exit()
-token = res  
-net_io.logout( token )
+token = res['data']['token']  
+
+#client_API.change_filename( HOST, token, 'out6.cod' )
+#client_API.get_filelist( HOST, token )
+#res = client_API.get_file( HOST, token, 'out.cod' )
+
+client_API.get_translate( HOST, token )
+client_API.set_translate( HOST, token, 'ON' )
+client_API.get_translate( HOST, token )
+
+
+client_API.logout( HOST, token )
 
 print( res )
-exit()
 
-while True:    
-  print( net_io.send_net( "127.0.0.1", cmd ) )
-  time.sleep( 5 )
+
 
