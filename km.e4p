@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project km -->
-<!-- Saved: 2020-10-02, 10:28:04 -->
+<!-- Saved: 2020-10-05, 10:51:35 -->
 <!-- Copyright (C) 2020 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -21,6 +21,7 @@
     <Source>diff_func.py</Source>
     <Source>orange_server.py</Source>
     <Source>pk_client.py</Source>
+    <Source>scanner.py</Source>
     <Source>server.ini</Source>
     <Source>server_API.py</Source>
     <Source>steps.txt</Source>
