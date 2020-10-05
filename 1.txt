@@ -1,0 +1,16 @@
+/dev/input/event15 Lenovo EasyCamera: Lenovo EasyC usb-0000:00:1a.0-1.5/button
+/dev/input/event14 HDA Intel PCH HDMI/DP,pcm=3 ALSA
+/dev/input/event13 HDA Intel PCH Headphone ALSA
+/dev/input/event12 HDA Intel PCH Mic ALSA
+/dev/input/event11 Ideapad extra buttons ideapad/input0
+/dev/input/event10 SynPS/2 Synaptics TouchPad isa0060/serio1/input0
+/dev/input/event9 MOSART Semi. 2.4G Keyboard Mouse usb-0000:00:1a.0-1.2/input1
+/dev/input/event8 MOSART Semi. 2.4G Keyboard Mouse System Control usb-0000:00:1a.0-1.2/input1
+/dev/input/event7 MOSART Semi. 2.4G Keyboard Mouse Consumer Control usb-0000:00:1a.0-1.2/input1
+/dev/input/event6 MOSART Semi. 2.4G Keyboard Mouse usb-0000:00:1a.0-1.2/input1
+/dev/input/event5 MOSART Semi. 2.4G Keyboard Mouse usb-0000:00:1a.0-1.2/input0
+/dev/input/event4 Video Bus LNXVIDEO/video/input0
+/dev/input/event3 AT Translated Set 2 keyboard isa0060/serio0/input0
+/dev/input/event2 Power Button LNXPWRBN/button/input0
+/dev/input/event1 Sleep Button PNP0C0E/button/input0
+/dev/input/event0 Lid Switch PNP0C0D/button/input0

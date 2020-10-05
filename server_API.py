@@ -133,12 +133,24 @@ def cmd_gettranslate( data ):
   else:
     res = { 'result':'OK', 'data':'OFF' }
   return diff_func.encode( res )
-  
+
+@diff_func.log
+def cmd_getbarcode( data ):
+  if read_info_translate_data == True:
+    if len( buf ) > 0:
+      res = { 'result':'OK', 'data':buf.pop( 0 ) }
+      
+    else:
+      res = { 'result':'ERROR', 'data':'Bufer is empty' }
+  else:
+    res = { 'result':'ERROR', 'data':'Translating is off' }
+  return diff_func.encode( res )
+      
 @diff_func.log
 def cmd_unknown( data ):
   output = diff_func.encode( {'result':'ERROR', 'data':'unknown command'} )
   return output
-    
+
 # Заполнение адресов вызовов API
 commands = { 'scan':cmd_scan, 
              'login':cmd_login, 
@@ -147,6 +159,7 @@ commands = { 'scan':cmd_scan,
              'get_filelist':cmd_get_filelist, 
              'get_file':cmd_getfile, 
              'set_translate':cmd_settranslate, 
-             'get_translate':cmd_gettranslate}
+             'get_translate':cmd_gettranslate, 
+             'get_barcode':cmd_getbarcode}
 #*******************************************************************************
 

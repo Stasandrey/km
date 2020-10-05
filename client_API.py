@@ -80,3 +80,8 @@ def set_translate( addr, token, on_off ):
 @diff_func.log
 def get_translate( addr, token ):
   return send_net( addr, 'get_translate', { 'token':token } )
+
+# Получить код от сервера
+@diff_func.log
+def get_barcode( addr, token ):
+  return send_net( addr, 'get_barcode', { 'token':token } )

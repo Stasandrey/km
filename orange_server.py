@@ -6,6 +6,7 @@ import socket
 import diff_func
 import server_API
 import logging
+import scanner
 global server_run
 
 logging.basicConfig( level = logging.INFO )
@@ -23,8 +24,6 @@ def server():
       if not data:
           break
       res = diff_func.decode( data ) 
-      
-      
       if res['command'] in server_API.commands:
         if res['command'] != 'login' and res['command'] != 'scan':
           if server_API.isToken( res['data']['token'] ) != -1:
@@ -42,19 +41,17 @@ def server():
 def read_info():
     
     while True:
-      info = str( input() )
-      if info == 'exit':
-        return True
+      info = scanner.get_barcode()
       if server_API.read_info_run == True:
         while server_API.is_server_change_data == True:
           pass
         if server_API.read_info_write_data == True:
           server_API.is_read_info_change_data = True
-          server_API.f.write( info + '\n' )
+          server_API.f.write( info )
           server_API.is_read_info_change_data = False
           logging.info( 'Записана строка [%s] в файл [%s]'%( info, server_API.filename ) )
         if server_API.read_info_translate_data == True:
-          server_API.buf.append( info + '\n' )
+          server_API.buf.append( info )
 
 
 if __name__ == '__main__':

@@ -3,8 +3,9 @@
 
 import client_API
 import logging
+import time
 
-HOST = '127.0.0.1'
+HOST = '192.168.43.87'
 PORT = 9090
 PASSWORD = '1234'
 token = ''
@@ -24,8 +25,11 @@ token = res['data']['token']
 client_API.get_translate( HOST, token )
 client_API.set_translate( HOST, token, 'ON' )
 client_API.get_translate( HOST, token )
-
-
+while True:
+  res = client_API.get_barcode( HOST, token )
+  if res['result'] == 'OK':
+    print( "Barcode:[%s]"%( res['data'] ) )
+  time.sleep( 5 )
 client_API.logout( HOST, token )
 
 print( res )
