@@ -99,14 +99,18 @@ def cmd_get_filelist( data ):
 def cmd_getfile( data ):
   global is_server_change_data
   global is_read_info_change_data
+  global f
   if os.path.exists( data['filename'] ) == True:
     while is_read_info_change_data == True:
       pass
     is_server_change_data = True
+    f.close()
     with open( data['filename'], 'rt' ) as file:
       d = file.readlines()
       output = diff_func.encode( { 'result':'OK', 'data':d } )
     is_server_change_data = False
+    f  = open( filename, 'at' )
+  
   else:
     output = diff_func.encode( { 'result':'ERROR', 'data':'File not exist' } )
   return output

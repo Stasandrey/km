@@ -70,7 +70,12 @@ def get_filelist( addr, token ):
 @diff_func.log
 def get_file( addr, token, filename ):
   return send_net( addr, 'get_file', { 'token':token, 'filename':filename } )
-  
+
+# Получить имя текущей сессии
+@diff_func.log
+def get_current( addr, token ):
+    return send_net( addr, 'get_current', { 'token':token } )
+ 
 # Установить режим передачи данных
 @diff_func.log
 def set_translate( addr, token, on_off ):
