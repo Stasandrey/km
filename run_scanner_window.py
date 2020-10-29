@@ -8,6 +8,7 @@ import os.path
 import logging
 import time
 import threading
+import znak_api 
 #import json
 
 class Scanner_Window( QtWidgets.QWidget, scanner_window.Ui_Scanner_Window ):
@@ -93,6 +94,11 @@ class Scanner_Window( QtWidgets.QWidget, scanner_window.Ui_Scanner_Window ):
             self.pushOn.setEnabled( False )
             self.pushOff.setEnabled( True )
             self.labelOn.setText( "Онлайн режим:ON" )
+            self.api = znak_api.Api()
+            print( self.api.do( 'get_question', {'filename':'out.txt' }) )
+            print( self.api.do( 'certification', { 'input':'out.txt', 'output':'ecp.txt' } ) )
+            print( self.api.do( 'get_token', {'filename':'ecp.txt'} ) )
+            
             self.server_thread = threading.Thread( target = self.scan, args = '' )
             self.server_thread.start()
                 
@@ -100,11 +106,44 @@ class Scanner_Window( QtWidgets.QWidget, scanner_window.Ui_Scanner_Window ):
         while self.scanning_run == True:
             res = client_API.get_barcode( self.address, self.token )    
             while res['result'] == 'OK':
-                self.listCodes.addItem( res['data'] )
+                
+                sec = res['data']
+                s = ''
+                for i in sec:
+                    if i == '"':
+                        s = s + "'"
+                    elif i == "'":
+                        s = s + '"'
+                    else:
+                        s = s + i
+                
+                
+                
+                t = self.api.do( 'get_info', {'cis':s}  )['data']
+    #print( res['status'] )
+    #print( res['emissionType'] )
+                print( t )
+                s = res['data'] 
+                if 'status' in t:
+                   if 'emissionType' in t:
+                        if t['status'] == 'APPLIED':
+                            s = s + ' ТД Гарсинг '
+                        else :
+                            s = s + ' ---------- '
+                        if t['emissionType'] == 'LOCAL':
+                            s = s + ' ДС '
+                        elif t['emissionType'] == 'FOREIGN':
+                            s = s + ' НС '
+                        else:
+                            s = s + ' -- '
+                           
+                else:
+                    s = s + ' ----------  --'
+                self.listCodes.addItem( s )
                 res = client_API.get_barcode( self.address, self.token )
                 self.num = self.num + 1
             self.labelNum.setText( 'Всего:%s'%( str( self.num ) ) )
-            time.sleep( self.spinTime.value() )
+            time.sleep( self.spinTime.value()  )
     
     def btnOff( self ):
         self.scanning_run = False

@@ -96,6 +96,11 @@ def cmd_get_filelist( data ):
   return output
   
 @diff_func.log
+def cmd_getcurrent( data ):
+  global filename
+  return diff_func.encode( { 'result':'OK', 'data':filename } )
+
+@diff_func.log
 def cmd_getfile( data ):
   global is_server_change_data
   global is_read_info_change_data
@@ -108,9 +113,8 @@ def cmd_getfile( data ):
     with open( data['filename'], 'rt' ) as file:
       d = file.readlines()
       output = diff_func.encode( { 'result':'OK', 'data':d } )
+    f = open( filename, "at" )
     is_server_change_data = False
-    f  = open( filename, 'at' )
-  
   else:
     output = diff_func.encode( { 'result':'ERROR', 'data':'File not exist' } )
   return output
@@ -164,6 +168,7 @@ commands = { 'scan':cmd_scan,
              'get_file':cmd_getfile, 
              'set_translate':cmd_settranslate, 
              'get_translate':cmd_gettranslate, 
-             'get_barcode':cmd_getbarcode}
+             'get_barcode':cmd_getbarcode,
+             'get_current':cmd_getcurrent}
 #*******************************************************************************
 

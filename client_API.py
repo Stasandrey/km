@@ -4,8 +4,8 @@
 import socket
 import diff_func
 
-diff_func.DEBUG_API = True
-diff_func.DEBUG_NET_IO = True
+diff_func.DEBUG_API = False
+diff_func.DEBUG_NET_IO = False
 PORT = 9090
 
 #logging.basicConfig( level = logging.INFO )

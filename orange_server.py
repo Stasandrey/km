@@ -41,13 +41,13 @@ def server():
 def read_info():
     
     while True:
-      info = scanner.get_barcode()
+      info = scanner.get_barcode() 
       if server_API.read_info_run == True:
         while server_API.is_server_change_data == True:
           pass
         if server_API.read_info_write_data == True:
           server_API.is_read_info_change_data = True
-          server_API.f.write( info )
+          server_API.f.write( info + '\n' )
           server_API.is_read_info_change_data = False
           logging.info( 'Записана строка [%s] в файл [%s]'%( info, server_API.filename ) )
         if server_API.read_info_translate_data == True:
@@ -55,6 +55,10 @@ def read_info():
 
 
 if __name__ == '__main__':
+  f = open( "/home/andrey/dfg.txt","wt" )
+  f.write( "123456789" )
+  f.close()
+
   logging.info( 'Старт программы orange_server.' )
   logging.info( 'Запуск потока обработки API' )
   server_thread = threading.Thread( target = server, args = '' )

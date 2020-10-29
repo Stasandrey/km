@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project km -->
-<!-- Saved: 2020-10-05, 14:47:54 -->
+<!-- Saved: 2020-10-28, 14:08:01 -->
 <!-- Copyright (C) 2020 ,  -->
 <Project version="5.1">
   <Language></Language>
@@ -29,6 +29,7 @@
     <Source>server_API.py</Source>
     <Source>steps.txt</Source>
     <Source>tmp.py</Source>
+    <Source>znak_api.py</Source>
   </Sources>
   <Others>
     <Other>client.ini</Other>
